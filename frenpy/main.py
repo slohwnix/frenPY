@@ -101,6 +101,8 @@ def compile_frenpy(file_to_compile):
         data = re.sub(r'(?<!")\bsaisir\b(?!")', 'input', data)
         data = re.sub(r'(?<!")\bdans la\b(?!")', 'in', data)
         data = re.sub(r'(?<!")\bfrpy_scc=True\b(?!")', '', data)
+        data = re.sub(r'(?<!")\bfrpy_debug=True\b(?!")', '', data)
+        data = re.sub(r'(?<!")\bfrpy_debug=False\b(?!")', '', data)
         return data
     except Exception as errors:
         print("-Erreur lors de l'étape de compilation")
