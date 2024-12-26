@@ -103,4 +103,3 @@ si "oui" dans la question :
 si "non" dans la question:
     afficher("tu n'es pas riche !")
 ```
-
