@@ -50,16 +50,27 @@ Les fichiers `.frenpy` sont des scripts Python écrits en français. Voici la li
 
 
 import => importer
+
 print => afficher
+
 if => si
+
 else => sinon
+
 while True => répéter à l'infini
+
 round => arrondir
+
 os.system("cls") => nouvelle_écran
+
 print("version actuelle : {frpy_version}") => frpy_info (***il permet d'afficher la version actuelle de frenpy ***)
+
 break => stopper
+
 time.sleep => attendre
+
 input => saisir
+
 in => dans la
 
 ***frpy_scc=True/False n'est pas transformable pour python car il n'a pas de traduction littéral**
