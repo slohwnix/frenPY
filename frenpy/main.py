@@ -12,7 +12,7 @@ except:
     exit()
 def recup_donnee_fichier(fichier):
     try:
-        with open(f"./{fichier}", 'r', encoding='utf-8') as f:
+        with open(fichier, 'r', encoding='utf-8') as f:
             return f.read()
     except Exception as e:
         print(f"Erreur lors de la lecture du fichier {fichier} : {e}")
