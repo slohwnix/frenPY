@@ -17,6 +17,15 @@ def recup_donnee_fichier(fichier):
     except Exception as e:
         print(f"Erreur lors de la lecture du fichier {fichier} : {e}")
         return None
+    
+def save_actual_file(fichier_name, content):
+    try:
+        with open(fichier_name, 'w', encoding='utf-8') as file:
+            file.write(content)
+        print(f"Le fichier {fichier_name} a été sauvegardé !")
+    except Exception as errors:
+        print("Erreur lors de l'enregistrement : " + str(errors))
+        exit()
 
 def main_function():
     try:
@@ -33,6 +42,8 @@ def main_function():
                 if "frpy_debug=True" in compiled_code:
                     print("Code compilé :\n", compiled_code)
                     print("Code source :\n", data_code)
+                if "frpy_scc=True" in data_code:
+                    save_actual_file("compiled.py", compiled_code)
                 exec(compiled_code)
         elif File_toexecute == "":
             print("erreur : vous n'avez choisi aucun fichier")
@@ -55,6 +66,8 @@ def load(File_toexec):
                     if compiled_code in "frpy_debug=True":
                         print("Code compilé :\n", compiled_code)
                         print("Code source :\n", data_code) 
+                    if "frpy_scc=True" in data_code:
+                        save_actual_file("compiled.py", compiled_code)
                     elif compiled_code in "frpy_debug=False":
                         pass
                     else:
