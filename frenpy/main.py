@@ -1,4 +1,4 @@
-frpy_version = "1"
+frpy_version = "2"
 
 try:
     import time
@@ -107,7 +107,10 @@ def compile_frenpy(file_to_compile):
     try:
         replacement_words = load_replacement_words('words.json')
         for fr_word, py_word in replacement_words.items():
-            data = re.sub(rf'(?<!")\b{fr_word}\b(?!")', py_word, data)
+            if fr_word == "frpy_info":
+                data = re.sub(rf'(?<!")\b{fr_word}\b(?!")', f'print("version actuelle : {frpy_version}")', data)
+            else:
+                data = re.sub(rf'(?<!")\b{fr_word}\b(?!")', py_word, data)
         return data
     except Exception as errors:
         print("-Erreur lors de l'étape de compilation")
