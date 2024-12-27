@@ -49,7 +49,7 @@ frenpy.main_function()
 Les fichiers `.frenpy` sont des scripts Python écrits en français. Voici la liste des mots-clés traduits :
 
 ```py
-def => fonction
+def => définir
 
 for => pour
 
