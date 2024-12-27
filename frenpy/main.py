@@ -88,7 +88,7 @@ def load(File_toexec):
 
 def load_replacement_words(json_file):
     try:
-        base_dir = os.path.dirname(__file__)
+        base_dir = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(base_dir, json_file)
         with open(file_path, 'r', encoding='utf-8') as file:
             return json.load(file)
