@@ -6,5 +6,9 @@ setup(
     version='0.2.9',
     description='French python',
     author='slohwnix',
-    install_requires=[]
+    install_requires=[],
+    package_data={
+        'frenpy': ['words.json'],
+    },
+    include_package_data=True,
 )
