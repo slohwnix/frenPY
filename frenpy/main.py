@@ -116,7 +116,7 @@ def compile_frenpy(file: str)-> str|None:
 
     try:
 
-        data = re.sub(r'(?<!")\bfonction\b(?!")', 'def', data)
+        data = re.sub(r'(?<!")\bdéfinir\b(?!")', 'def', data)
         data = re.sub(r'(?<!")\bpour\b(?!")', 'for', data)
         data = re.sub(r'(?<!")\bimporter\b(?!")', 'import', data)
         data = re.sub(r'(?<!")\bafficher\b(?!")', 'print', data)
