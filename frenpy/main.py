@@ -91,7 +91,7 @@ def load_replacement_words(json_file):
         print(f"Erreur lors de la lecture du fichier JSON {json_file} : {e}")
         return {}
 
-def get_words():
+def get_words_frenpy():
     try:
         replacement_words = load_replacement_words('words.json')
         return list(replacement_words.keys())
