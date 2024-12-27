@@ -48,6 +48,10 @@ frenpy.main_function()
 
 Les fichiers `.frenpy` sont des scripts Python écrits en français. Voici la liste des mots-clés traduits :
 
+```py
+def => fonction
+
+for => pour
 
 import => importer
 
@@ -73,6 +77,8 @@ input => saisir
 
 in => dans la
 
+```
+
 ***frpy_scc=True/False n'est pas transformable pour python car il n'a pas de traduction littéral**
 
 
@@ -80,7 +86,7 @@ in => dans la
 
 Voici un exemple de fichier `.frenpy` :
 
-```frenpy
+```py
 # importations :
 importer os
 importer time
