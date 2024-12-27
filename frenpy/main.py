@@ -1,3 +1,5 @@
+import os
+
 frpy_version = "2"
 
 try:
@@ -11,6 +13,7 @@ except ModuleNotFoundError:
 except:
     print("erreur inattendue : " + str(ImportError))
     exit()
+
 def recup_donnee_fichier(fichier):
     try:
         with open(fichier, 'r', encoding='utf-8') as f:
@@ -85,7 +88,9 @@ def load(File_toexec):
 
 def load_replacement_words(json_file):
     try:
-        with open(json_file, 'r', encoding='utf-8') as file:
+        base_dir = os.path.dirname(__file__)
+        file_path = os.path.join(base_dir, json_file)
+        with open(file_path, 'r', encoding='utf-8') as file:
             return json.load(file)
     except Exception as e:
         print(f"Erreur lors de la lecture du fichier JSON {json_file} : {e}")
