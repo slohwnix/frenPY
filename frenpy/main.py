@@ -1,96 +1,127 @@
-frpy_version = "1"
+
+import sys
 
 try:
+
     import time
     import os
     import re
+
 except ModuleNotFoundError:
+
     import pip
     pip.main(['install', 'time', 'os', 're'])
+
 except:
-    print("erreur inattendue : " + str(ImportError))
+
+    print(f"Erreur inattendue lors de l'importation des modules\ndétail {str(ImportError)}", file=sys.stderr)
     exit()
-def recup_donnee_fichier(fichier):
+
+
+frpy_version = "1.0.0"
+
+
+def read(fichier: str)-> str|None:
+
     try:
+
         with open(fichier, 'r', encoding='utf-8') as f:
             return f.read()
-    except Exception as e:
-        print(f"Erreur lors de la lecture du fichier {fichier} : {e}")
+
+    except Exception as err:
+
+        print(f"Erreur lors de la lecture du fichier '{fichier}'\ndétail {str(err)}", file=sys.stderr)
         return None
+
+
+def save_current(fichier: str, content: str)-> None:
     
-def save_actual_file(fichier_name, content):
     try:
-        with open(fichier_name, 'w', encoding='utf-8') as file:
+        
+        with open(fichier, 'w', encoding='utf-8') as file:
             file.write(content)
-        print(f"Le fichier {fichier_name} a été sauvegardé !")
-    except Exception as errors:
-        print("Erreur lors de l'enregistrement : " + str(errors))
+        print(f"Le fichier {fichier} a été sauvegardé !")
+    
+    except Exception as err:
+        
+        print(f"Erreur lors de l'enregistrement\ndétail : {str(err)}", file=sys.stderr)
         exit()
 
-def main_function():
+
+def main_function()-> None:
+    
     try:
+        
         print("_____")
         print("| frenpy compiled executor")
-        File_toexecute = input("quelle fichier éxécuter ? ")
-        if File_toexecute.endswith(".py"):
-            with open(File_toexecute, 'r', encoding='utf-8') as file:
-                exec(file.read())
-        elif File_toexecute.endswith(".frenpy"):
-            data_code = recup_donnee_fichier(File_toexecute)
-            compiled_code = compile_frenpy(File_toexecute)
-            if compiled_code:
-                if "frpy_debug=True" in compiled_code:
-                    print("Code compilé :\n", compiled_code)
-                    print("Code source :\n", data_code)
-                if "frpy_scc=True" in data_code:
-                    save_actual_file("compiled.py", compiled_code)
-                exec(compiled_code)
-        elif File_toexecute == "":
-            print("erreur : vous n'avez choisi aucun fichier")
-        else:
-            print("erreur : fichier non supporté")
+        
+        repeat: bool = True
+        
+        while repeat:
+            repeat = not load(input("Quelle fichier éxécuter ? "))
+        
     except KeyboardInterrupt:
         exit()
-    except Exception as error:
-        print("erreur : " + str(error))
+        
+    except Exception as err:
+        print(f"Erreur :\ndétail : {str(err)}", file=sys.stderr)
 
-def load(File_toexec):
+
+def load(file: str)-> bool:
+    
     try:
-        data_code = recup_donnee_fichier(File_toexec)
-        if data_code:
-            if File_toexec.endswith(".py"):
-                exec(data_code)
-            elif File_toexec.endswith(".frenpy"):
-                compiled_code = compile_frenpy(File_toexec)
-                if compiled_code:
-                    if compiled_code in "frpy_debug=True":
-                        print("Code compilé :\n", compiled_code)
-                        print("Code source :\n", data_code) 
-                    if "frpy_scc=True" in data_code:
-                        save_actual_file("compiled.py", compiled_code)
-                    elif compiled_code in "frpy_debug=False":
-                        pass
-                    else:
-                        pass
-                    exec(compiled_code)
-            elif File_toexec == "":
-                print("erreur : vous n'avez choisi aucun fichier")
+        
+        content:str|None = read(file)
+        
+        if content:
+            
+            if file.endswith(".py"):
+                exec(content)
+                return True
+            
+            elif file.endswith(".frenpy"):
+                
+                compiled: str = compile_frenpy(file)
+                
+                if compiled:
+                    
+                    if compiled in "frpy_debug=True":
+                        print("Code source :\n", content)
+                        print("Code compilé :\n", compiled)
+                    
+                    if "frpy_scc=True" in content:
+                        save_current("compiled.py", compiled)
+                    
+                    exec(compiled)
+                    return True
+            
+            elif file == "":
+                print("Erreur : vous n'avez choisi aucun fichier", file=sys.stderr)
+            
             else:
-                print("erreur : fichier non supporté")
-    except KeyboardInterrupt:
-        exit()
-    except Exception as error:
-        print("erreur : " + str(error))
+                print("Erreur : fichier non supporté", file=sys.stderr)
+    
+    except Exception as err:
+        print(f"Erreur :\ndétail : {str(err)}", file=sys.stderr)
+    
+    return False
 
-def compile_frenpy(file_to_compile):
-    import re
-    data = recup_donnee_fichier(file_to_compile)
+
+def compile_frenpy(file: str)-> str|None:
+
+    data = read(file)
+
     if data is None:
-        return None
+        return
+
     try:
+
+        data = re.sub(r'(?<!")\bfonction\b(?!")', 'def', data)
+        data = re.sub(r'(?<!")\bpour\b(?!")', 'for', data)
         data = re.sub(r'(?<!")\bimporter\b(?!")', 'import', data)
         data = re.sub(r'(?<!")\bafficher\b(?!")', 'print', data)
         data = re.sub(r'(?<!")\bsi\b(?!")', 'if', data)
+        data = re.sub(r'(?<!")\bou sinon\b(?!")', 'elif', data)
         data = re.sub(r'(?<!")\bsinon\b(?!")', 'else', data)
         data = re.sub(r'(?<!")\brépéter à l\'infini\b(?!")', 'while True', data)
         data = re.sub(r'(?<!")\barrondir\b(?!")', 'round', data)
@@ -103,11 +134,14 @@ def compile_frenpy(file_to_compile):
         data = re.sub(r'(?<!")\bfrpy_scc=True\b(?!")', '', data)
         data = re.sub(r'(?<!")\bfrpy_debug=True\b(?!")', '', data)
         data = re.sub(r'(?<!")\bfrpy_debug=False\b(?!")', '', data)
+        
         return data
-    except Exception as errors:
-        print("-Erreur lors de l'étape de compilation")
-        print("-Echec : " + str(errors))
+
+    except Exception as err:
+        
+        print(f"Erreur lors de l'étape de compilation :\ndétail : {str(err)}", file=sys.stderr)
         exit()
+
 
 if __name__ == "__main__":
     main_function()

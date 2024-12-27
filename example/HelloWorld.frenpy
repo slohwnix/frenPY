@@ -1,0 +1,15 @@
+
+
+# configuration de frenpy :
+frpy_debug=True
+frpy_scc=True
+frpy_info
+
+# Fonction qui affiche "Hello World!" 10x dans la console
+fonction main()-> None:
+    pour i dans la range(0, 10):
+        afficher("Hello World!")
+
+si __name__ == "__main__":
+    nouvelle_écran
+    main()

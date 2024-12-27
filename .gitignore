@@ -2,3 +2,5 @@
 /dist
 /FRENPY.egg-info
 /build
+
+**/__pycache__/
