@@ -4,14 +4,13 @@ frpy_version = "2"
 
 try:
     import time
-    import os
     import re
     import json
 except ModuleNotFoundError:
     import pip
-    pip.main(['install', 'time', 'os', 're', 'json'])
+    pip.main(['install', 'time', 're', 'json'])
 except:
-    print("erreur inattendue : " + str(ImportError))
+    print("Erreur inattendue : " + str(ImportError))
     exit()
 
 def recup_donnee_fichier(fichier):
@@ -21,7 +20,7 @@ def recup_donnee_fichier(fichier):
     except Exception as e:
         print(f"Erreur lors de la lecture du fichier {fichier} : {e}")
         return None
-    
+
 def save_actual_file(fichier_name, content):
     try:
         with open(fichier_name, 'w', encoding='utf-8') as file:
@@ -35,7 +34,7 @@ def main_function():
     try:
         print("_____")
         print("| frenpy compiled executor")
-        File_toexecute = input("quelle fichier éxécuter ? ")
+        File_toexecute = input("Quel fichier exécuter ? ")
         if File_toexecute.endswith(".py"):
             with open(File_toexecute, 'r', encoding='utf-8') as file:
                 exec(file.read())
@@ -50,13 +49,13 @@ def main_function():
                     save_actual_file("compiled.py", compiled_code)
                 exec(compiled_code)
         elif File_toexecute == "":
-            print("erreur : vous n'avez choisi aucun fichier")
+            print("Erreur : vous n'avez choisi aucun fichier")
         else:
-            print("erreur : fichier non supporté")
+            print("Erreur : fichier non supporté")
     except KeyboardInterrupt:
         exit()
     except Exception as error:
-        print("erreur : " + str(error))
+        print("Erreur : " + str(error))
 
 def load(File_toexec):
     try:
@@ -67,24 +66,20 @@ def load(File_toexec):
             elif File_toexec.endswith(".frenpy"):
                 compiled_code = compile_frenpy(File_toexec)
                 if compiled_code:
-                    if compiled_code in "frpy_debug=True":
+                    if "frpy_debug=True" in compiled_code:
                         print("Code compilé :\n", compiled_code)
                         print("Code source :\n", data_code) 
                     if "frpy_scc=True" in data_code:
                         save_actual_file("compiled.py", compiled_code)
-                    elif compiled_code in "frpy_debug=False":
-                        pass
-                    else:
-                        pass
                     exec(compiled_code)
             elif File_toexec == "":
-                print("erreur : vous n'avez choisi aucun fichier")
+                print("Erreur : vous n'avez choisi aucun fichier")
             else:
-                print("erreur : fichier non supporté")
+                print("Erreur : fichier non supporté")
     except KeyboardInterrupt:
         exit()
     except Exception as error:
-        print("erreur : " + str(error))
+        print("Erreur : " + str(error))
 
 def load_replacement_words(json_file):
     try:
@@ -112,9 +107,6 @@ def compile_frenpy(file_to_compile):
     try:
         replacement_words = load_replacement_words('words.json')
         for fr_word, py_word in replacement_words.items():
-            
-            if data in "frpy_info":
-                data = re.sub(rf'(?<!")\b{fr_word}\b(?!")', f'print("version actuelle : {frpy_version}")', data)
             data = re.sub(rf'(?<!")\b{fr_word}\b(?!")', py_word, data)
         return data
     except Exception as errors:
