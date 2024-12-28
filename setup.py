@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 setup(
     name='frenpy',
     packages=find_packages(include=['frenpy']),
-    version='0.3.2',
+    version='0.3.3',
     description='French python',
     author='slohwnix',
     install_requires=[],
