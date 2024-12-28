@@ -114,6 +114,7 @@ def compile_frenpy(file_to_compile):
         for fr_word, py_word in replacement_words.items():
             if fr_word == "frpy_info":
                 data = re.sub(rf'(?<!")\b{fr_word}\b(?!")', f'print("version actuelle : {frpy_version}")', data)
+                data = re.sub(rf'(?<!")\b{fr_word}\b(?!")', py_word, data)
             else:
                 data = re.sub(rf'(?<!")\b{fr_word}\b(?!")', py_word, data)
         return data
