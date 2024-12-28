@@ -106,6 +106,8 @@ def compile_frenpy(file_to_compile):
         return None
     try:
         replacement_words = load_replacement_words('words.json')
+        if "frpy_info" in data:
+                data = re.sub(rf'(?<!")\b{fr_word}\b(?!")', f'print("version actuelle : {frpy_version}")', data)
         for fr_word, py_word in replacement_words.items():
             data = re.sub(rf'(?<!")\b{fr_word}\b(?!")', py_word, data)
         return data
