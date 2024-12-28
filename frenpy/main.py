@@ -1,6 +1,6 @@
 import os
 
-frpy_version = "2"
+frpy_version = "3"
 
 try:
     import time
@@ -12,6 +12,7 @@ except ModuleNotFoundError:
 except:
     print("Erreur inattendue : " + str(ImportError))
     exit()
+
 
 def recup_donnee_fichier(fichier):
     try:
@@ -107,7 +108,7 @@ def compile_frenpy(file_to_compile):
     try:
         replacement_words = load_replacement_words('words.json')
         if "frpy_info" in data:
-                data = re.sub(rf'(?<!")\b{fr_word}\b(?!")', f'print("version actuelle : {frpy_version}")', data)
+            data = re.sub(r'\bfrpy_info\b', f'print("version actuelle : {frpy_version}")', data)
         for fr_word, py_word in replacement_words.items():
             data = re.sub(rf'(?<!")\b{fr_word}\b(?!")', py_word, data)
         return data
