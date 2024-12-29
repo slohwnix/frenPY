@@ -50,36 +50,56 @@ Les fichiers `.frenpy` sont des scripts Python écrits en français. Voici la li
 
 ```py
 def => définir
-
-for => pour
-
 import => importer
-
 print => afficher
-
 if => si
-
 else => sinon
-
 while True => répéter à l'infini
-
 round => arrondir
-
 os.system("cls") => nouvelle_écran
-
-print("version actuelle : {frpy_version}") => frpy_info (***il permet d'afficher la version actuelle de frenpy ***)
-
 break => stopper
-
 time.sleep => attendre
-
 input => saisir
-
 in => dans la
-
+retourner => return
+et => and
+ou => or
+non => not
+vrai => True
+faux => False
+pour => for
+tant que => while
+essayer => try
+except => except
+avec => with
+classe => class
+importer comme => import as
+depuis => from
+lever => raise
+continuer => continue
+passer => pass
+supprimer => del
+global => global
+lambda => lambda
+assurer => assert
+ranger => sort
+longueur => len
+ouvrir => open
+liste => list
+dictionnaire => dict
+ensemble => set
+tuple => tuple
+enumerer => enumerate
+toutes => all
+n'importe lequel => any
+plage => range
+type => type
+frpy_info => affiche la version actuel
+frpy_scc=True => sauvegarde la version compilée
+frpy_debug=true => active le debug
 ```
 
-***frpy_scc=True/False n'est pas transformable pour python car il n'a pas de traduction littéral**
+***Tout les mots commençant par frpy ne sont pas transformable en python car ils n'ont pas de traduction littéral**
 
 
 ## Exemple
