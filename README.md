@@ -129,3 +129,9 @@ si "oui" dans la question :
 si "non" dans la question:
     afficher("tu n'es pas riche !")
 ```
+
+## Contributeurs 
+
+<a href="https://github.com/slohwnix/frenpy/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=slohwnix/frenpy" />
+</a>
