@@ -5,7 +5,7 @@
     "sinon": "else",
     "répéter à l'infini": "while True",
     "arrondir": "round",
-    "nouvelle_écran": "os.system(\"cls\")",
+    "nouvelle écran": "os.system(\"cls\")",
     "stopper": "break",
     "attendre": "time.sleep",
     "saisir": "input",
